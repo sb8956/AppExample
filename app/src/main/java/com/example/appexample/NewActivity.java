@@ -54,8 +54,8 @@ public class NewActivity extends AppCompatActivity {
         getNews();
 
         //1. 화면이 로딩 -> 뉴스 정보를 받아온다. ----- end
-        //2. 정보 -> 어댑터에 넘겨준다.
-        //3. 어댑터 ->  받아온 정보를 세팅해서 화면에 표시
+        //2. 정보 -> 어댑터에 넘겨준다. ----- end
+        //3. 어댑터 ->  받아온 정보를 세팅해서 화면에 표시 ----- end
     }
 
     public void getNews(){
@@ -68,7 +68,7 @@ public class NewActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("NEWS", response);
+                        //Log.d("NEWS", response);
 
                         try {
                             JSONObject jsonObj = new JSONObject(response);
@@ -77,10 +77,11 @@ public class NewActivity extends AppCompatActivity {
 
                             //response -> NewsData.class 에 분류
                             List<NewsData> news= new ArrayList<>();
+
                             for(int i=0, j=arrayArticles.length();i<j;i++) {
                                 JSONObject obj = arrayArticles.getJSONObject(i);
 
-                                Log.d("News",obj.toString());
+                                Log.d("news",obj.toString());
 
                                 NewsData newsData = new NewsData();
                                 newsData.setTitle(obj.getString("title"));
@@ -91,7 +92,7 @@ public class NewActivity extends AppCompatActivity {
                             }
 
                             // specify an adapter (see also next example)
-                            mAdapter = new MyAdapter(news);
+                            mAdapter = new MyAdapter(news, NewActivity.this);
                             recyclerView.setAdapter(mAdapter);
 
                         } catch (JSONException e) {
