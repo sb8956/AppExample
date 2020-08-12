@@ -92,7 +92,22 @@ public class NewActivity extends AppCompatActivity {
                             }
 
                             // specify an adapter (see also next example)
-                            mAdapter = new MyAdapter(news, NewActivity.this);
+                            mAdapter = new MyAdapter(news, NewActivity.this, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Object obj = v.getTag();
+                                    if(obj!=null){
+                                        int position = (int) obj;
+                                        ((MyAdapter)mAdapter).getNews(position);
+                                        Intent intent = new Intent();
+                                        //1. 본문내용만 넘기기
+                                        //2. 전체를 다 넘긴다.
+                                            //2-1. 하나씩 다
+                                            //2-2. 한번에 다
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
                             recyclerView.setAdapter(mAdapter);
 
                         } catch (JSONException e) {
